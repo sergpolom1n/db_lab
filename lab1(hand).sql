@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS "books_by_publisher"(
     "book_id" BIGINT NOT NULL
 );
 
-ALTER TABLE books_by_publisher
+ALTER TABLE IF EXISTS books_by_publisher
     ADD FOREIGN KEY (publisher_id) REFERENCES publishers(id),
     ADD FOREIGN KEY (book_id) REFERENCES books(id);
 
