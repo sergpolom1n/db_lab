@@ -1,4 +1,4 @@
-CREATE TABLE "books"(
+CREATE TABLE IF NOT EXISTS "books"(
     "id" BIGINT NOT NULL,
     "BOOK_NAME" VARCHAR(255) NOT NULL ,
     "EDITION" INT ,
@@ -11,7 +11,7 @@ ALTER TABLE IF EXISTS books
 
 
 
-CREATE TABLE "publishers"(
+CREATE TABLE IF NOT EXISTS "publishers"(
     "id" BIGINT NOT NULL ,
     "publisher_name" VARCHAR(255) NOT NULL
 );
@@ -20,7 +20,7 @@ ALTER TABLE IF EXISTS publishers
     ADD PRIMARY KEY (id);
 
 
-CREATE TABLE "authors"(
+CREATE TABLE IF NOT EXISTS "authors"(
     "id" BIGINT NOT NULL ,
     "name" VARCHAR(255) NOT NULL ,
     "surname" VARCHAR(255) NOT NULL
@@ -30,7 +30,7 @@ ALTER TABLE IF EXISTS authors
     ADD PRIMARY KEY (id);
 
 
-CREATE TABLE "readers"(
+CREATE TABLE IF NOT EXISTS "readers"(
     "id" BIGINT NOT NULL ,
     "name" VARCHAR(255) NOT NULL ,
     "surname" VARCHAR(255) NOT NULL ,
@@ -43,7 +43,7 @@ ALTER TABLE IF EXISTS readers
     ADD PRIMARY KEY (id);
 
 
-CREATE TABLE "biblio_place"(
+CREATE TABLE IF NOT EXISTS "biblio_place"(
     "id" BIGINT NOT NULL ,
     "row" BIGINT NOT NULL ,
     "sequence_number" BIGINT NOT NULL
@@ -56,7 +56,7 @@ ALTER TABLE IF EXISTS books
     ADD FOREIGN KEY (place_id) REFERENCES biblio_place(id);
 
 
-CREATE TABLE "books_by_publisher"(
+CREATE TABLE IF NOT EXISTS "books_by_publisher"(
     "publisher_id" BIGINT NOT NULL ,
     "book_id" BIGINT NOT NULL
 );
@@ -66,17 +66,17 @@ ALTER TABLE books_by_publisher
     ADD FOREIGN KEY (book_id) REFERENCES books(id);
 
 
-CREATE TABLE "books_by_author"(
+CREATE TABLE IF NOT EXISTS "books_by_author"(
     "author_id" BIGINT NOT NULL ,
     "book_id" BIGINT NOT NULL
 );
 
-ALTER TABLE books_by_author
+ALTER TABLE IF EXISTS books_by_author
     ADD FOREIGN KEY (author_id) REFERENCES authors(id),
     ADD FOREIGN KEY (book_id) REFERENCES books(id);
 
 
-CREATE TABLE "book_issuance"(
+CREATE TABLE IF NOT EXISTS "book_issuance"(
     "book_id" BIGINT NOT NULL ,
     "reader_id" BIGINT NOT NULL ,
     "issuance_date" DATE NOT NULL ,
@@ -84,7 +84,7 @@ CREATE TABLE "book_issuance"(
     "return_date" DATE
 );
 
-ALTER TABLE book_issuance
+ALTER TABLE IF EXISTS book_issuance
     ADD FOREIGN KEY (book_id) REFERENCES books(id),
     ADD FOREIGN KEY (reader_id) REFERENCES readers(id);
 
